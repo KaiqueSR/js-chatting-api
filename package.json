@@ -7,6 +7,7 @@
 	"author": "KaiqueSR",
 	"license": "MIT",
 	"dependencies": {
+		"ejs": "^3.1.6",
 		"express": "^4.17.3",
 		"socket.io": "^4.4.1"
 	},
@@ -15,6 +16,6 @@
 	},
 	"scripts": {
 		"start": "node src/server.js",
-		"dev": "nodemon -e js,json,html"
+		"dev": "nodemon -e js,ejs,json"
 	}
 }

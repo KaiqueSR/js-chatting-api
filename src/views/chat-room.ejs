@@ -7,7 +7,15 @@
 		<title>Chat Room</title>
 	</head>
 	<body>
-		<h2>Hello, <%= username %></h2>
+		<main>
+			<aside class="users">
+				<h3>Connected users</h3>
+				<ul class="users-list"></ul>
+			</aside>
+			<section class="chat">
+				<h3>Chat</h3>
+			</section>
+		</main>
 
 		<script>
 			const username = "<%= username %>";

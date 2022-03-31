@@ -6,6 +6,8 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
+let connectedUsers = [];
+
 app.use("/static", express.static(__dirname + "/views"));
 app.use(express.urlencoded({ extended: true }));
 
@@ -27,7 +29,20 @@ app.post("/chat-room", (req, res) => {
 
 io.on("connection", socket => {
 	socket.on("user logged in", username => {
-		console.log("New user logged in:", username);
+		connectedUsers.push({ id: socket.id, username });
+		io.emit("new user connected", username);
+		io.emit(
+			"connected users",
+			connectedUsers.map(user => user.username)
+		);
+	});
+
+	socket.on("disconnect", () => {
+		connectedUsers = connectedUsers.filter(user => user.id != socket.id);
+		io.emit(
+			"connected users",
+			connectedUsers.map(user => user.username)
+		);
 	});
 });
 

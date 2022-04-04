@@ -12,10 +12,13 @@
 		"socket.io": "^4.4.1"
 	},
 	"devDependencies": {
+		"eslint": "^8.12.0",
 		"nodemon": "^2.0.15"
 	},
 	"scripts": {
 		"start": "node src/server.js",
-		"dev": "nodemon -e js,ejs,json"
+		"dev": "nodemon -e js,ejs,json",
+		"lint:fix": "eslint --fix src/*.js",
+		"lint": "eslint src/*.js"
 	}
 }

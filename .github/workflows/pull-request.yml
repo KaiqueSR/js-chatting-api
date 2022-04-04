@@ -16,7 +16,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
 
-      - run: npm ci
+      - run: yarn install
       - run: npm ls --depth=0
 
       - uses: ./

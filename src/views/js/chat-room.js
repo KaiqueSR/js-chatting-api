@@ -13,6 +13,8 @@ function addMessage(msg, sender) {
 	messageItem.appendChild(user);
 	messageItem.appendChild(message);
 
+	messageItem.className = "message";
+
 	chat.appendChild(messageItem);
 }
 
@@ -40,5 +42,27 @@ socket.on("connected users", users => {
 socket.on("new user connected", user => {
 	if (user != username) {
 		addMessage(`${user} connected!`);
+	}
+});
+
+socket.on("new message", message => {
+	addMessage(message.message, message.sender);
+});
+
+let form = document.querySelector("#send-message-form");
+let messageInput = document.querySelector("#message");
+
+form.addEventListener("submit", e => {
+	e.preventDefault();
+
+	if (messageInput.value) {
+		addMessage(messageInput.value, "You");
+
+		socket.emit("send message", {
+			message: messageInput.value,
+			sender: username,
+		});
+
+		messageInput.value = "";
 	}
 });

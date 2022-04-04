@@ -7,9 +7,14 @@
 		<title>Chat App</title>
 	</head>
 	<body>
-		<form class="username-form" method="POST" action="/chat-room" onsubmit="() => validateForm(this)">
+		<form
+			class="username-form"
+			method="POST"
+			action="/chat-room"
+			onsubmit="() => validateForm(this)"
+		>
 			<input type="text" placeholder="Username" name="username" />
-			<input type="submit" value="Enter" />
+			<input type="submit" value="Join chat" />
 		</form>
 
 		<script src="/socket.io/socket.io.js"></script>

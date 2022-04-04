@@ -44,6 +44,10 @@ io.on("connection", socket => {
 			connectedUsers.map(user => user.username)
 		);
 	});
+
+	socket.on("send message", message => {
+		socket.broadcast.emit("new message", message);
+	});
 });
 
 const PORT = process.env.PORT || 5000;

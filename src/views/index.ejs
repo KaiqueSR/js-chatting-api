@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chat App</title>
-  </head>
-  <body>
-    <form
-      class="username-form"
-      method="POST"
-      action="/chat-room"
-      onsubmit="() => !!this.username.value"
-    >
-      <input type="text" placeholder="Username" name="username" />
-      <input type="submit" value="Join chat" />
-    </form>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Chat App</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="/static/css/index.css" />
+	</head>
+	<body>
+		<form class="username-form" method="POST" action="/chat-room" onsubmit="() => !!this.username.value">
+			<input
+				type="text"
+				placeholder="Username"
+				name="username"
+				autocomplete="off"
+				class="username-input"
+				maxlength="25"
+			/>
+			<input type="submit" value="Join chat" class="form-submit" />
+		</form>
+	</body>
 </html>

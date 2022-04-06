@@ -17,7 +17,7 @@
 	},
 	"scripts": {
 		"start": "node src/server.js",
-		"dev": "nodemon -e js,ejs,json",
+		"dev": "nodemon -e js,ejs,json,css",
 		"lint:fix": "eslint --fix --ext .js src/",
 		"lint": "eslint --ext .js src/"
 	}

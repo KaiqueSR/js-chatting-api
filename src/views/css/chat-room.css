@@ -1,0 +1,102 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans', sans-serif;
+    overflow-x: hidden;
+}
+main {
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+.users {
+    background-color: #2ecc71;
+    height: 100%;
+    max-height: 100%;
+    padding: 15px;
+    width: 20%;
+    text-align: center;
+    overflow-y: scroll;
+}
+.users::-webkit-scrollbar {
+    width: 15px;
+    background-color: #2ecc71;
+}
+.users::-webkit-scrollbar-thumb, .chat::-webkit-scrollbar-thumb {
+    background-color: #29b463;
+    border-radius: 7.5px;
+    transition: 0.4s;
+}
+.chat::-webkit-scrollbar {
+    background-color: white;
+}
+.users h3 {
+    margin: 5px;
+}
+.users ul {
+    list-style: none;
+}
+.users li {
+    margin: 5px;
+}
+main > div {
+    padding: 20px;
+    min-height: 100%;
+    width: 100%;
+}
+.chat {
+    padding: 20px;
+    margin: 25px;
+    height: calc(100% - 125px);
+    max-height: calc(100% - 125px);
+    overflow-y: scroll;
+}
+#send-message-form {
+    text-align: center;
+}
+.message-input {
+    height: 50px;
+    outline: none;
+    padding: 15px;
+    width: 90%;
+    border: 1px solid #d8d8d8;
+    background-color: white;
+    transition: 0.5s;
+    border-radius: 25px;
+}
+.message-input:hover, .message-input:focus {
+    border-color: black;
+}
+#send-message-form input[type="submit"] {
+    height: 50px;
+    border: none;
+    outline: none;
+    padding: 15px;
+    border-radius: 25px;
+    background-color: #2ecc71;
+    cursor: pointer;
+    transition: 0.5s;
+}
+#send-message-form input[type="submit"]:hover {
+    background-color: #27ae60;
+}
+.message {
+    width: fit-content;
+    max-width: 80%;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 15px;
+    border: 1px solid #2ecc71;
+}
+.message .username {
+    font-size: 8pt;
+}
+.message .message-text {
+    text-align: justify;
+    width: max-content;
+    word-wrap: break-word;
+    word-spacing: -2px;
+}

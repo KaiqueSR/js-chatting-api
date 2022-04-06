@@ -8,6 +8,9 @@ function addMessage(msg, sender) {
 	let user = document.createElement("p");
 	let message = document.createElement("p");
 
+	user.className = "username";
+	message.className = "message-text";
+
 	user.textContent = (sender || "js-chatting") + ":";
 	message.textContent = msg;
 
@@ -17,6 +20,34 @@ function addMessage(msg, sender) {
 	messageItem.className = "message";
 
 	chat.appendChild(messageItem);
+
+	chat.scrollTop = chat.scrollHeight;
+}
+
+function addOwnMessage(msg) {
+	let chat = document.querySelector(".chat");
+
+	let messageItem = document.createElement("div");
+	let user = document.createElement("p");
+	let message = document.createElement("p");
+
+	user.className = "username";
+	message.className = "message-text";
+
+	user.textContent = "You:";
+	message.textContent = msg;
+
+	messageItem.appendChild(user);
+	messageItem.appendChild(message);
+
+	messageItem.className = "message";
+
+	chat.appendChild(messageItem);
+
+	messageItem.style.marginLeft = `calc(100% - ${messageItem.offsetWidth}px)`;
+	message.style.maxWidth = messageItem.offsetWidth - 30 + "px";
+
+	chat.scrollTop = chat.scrollHeight;
 }
 
 socket.emit("user logged in", username);
@@ -51,13 +82,13 @@ socket.on("new message", message => {
 });
 
 let form = document.querySelector("#send-message-form");
-let messageInput = document.querySelector("#message");
+let messageInput = document.querySelector(".message-input");
 
 form.addEventListener("submit", e => {
 	e.preventDefault();
 
 	if (messageInput.value) {
-		addMessage(messageInput.value, "You");
+		addOwnMessage(messageInput.value);
 
 		socket.emit("send message", {
 			message: messageInput.value,

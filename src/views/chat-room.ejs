@@ -5,6 +5,10 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Chat Room</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="/static/css/chat-room.css" />
 	</head>
 	<body>
 		<main>
@@ -12,13 +16,21 @@
 				<h3>Connected users</h3>
 				<ul class="users-list"></ul>
 			</aside>
-			<section class="chat">
+			<div>
 				<h3>Chat</h3>
-			</section>
-			<form action="" id="send-message-form">
-				<input type="text" id="message" placeholder="Message" />
-				<input type="submit" value="Send" />
-			</form>
+				<section class="chat">
+					<!-- STRUCTURE OF MESSAGES
+						<div class="message">
+							<p class="username">Username:</p>
+							<p class="message-text">Message here...</p>
+						</div>
+					-->
+				</section>
+				<form action="" id="send-message-form">
+					<input type="text" placeholder="Send a message" class="message-input" />
+					<input type="submit" value="Send" />
+				</form>
+			</div>
 		</main>
 
 		<script>

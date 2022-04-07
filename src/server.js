@@ -6,6 +6,8 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
+const { Message } = require("./db/models");
+
 let connectedUsers = [];
 
 app.use("/static", express.static(__dirname + "/views"));
@@ -14,11 +16,13 @@ app.use(express.urlencoded({ extended: true }));
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+	const allMessages = await Message.findAll();
+	console.log(allMessages);
 	res.render("index");
 });
 
-app.post("/chat-room", (req, res) => {
+app.post("/chat-room", async (req, res) => {
 	const { username } = req.body;
 	if (username) {
 		res.render("chat-room", { username });

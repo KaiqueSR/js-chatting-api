@@ -78,7 +78,7 @@ socket.on("new user connected", user => {
 });
 
 socket.on("new message", message => {
-	addMessage(message.message, message.sender);
+	addMessage(message.messageText, message.sender);
 });
 
 let form = document.querySelector("#send-message-form");
@@ -91,7 +91,7 @@ form.addEventListener("submit", e => {
 		addOwnMessage(messageInput.value);
 
 		socket.emit("send message", {
-			message: messageInput.value,
+			messageText: messageInput.value,
 			sender: username,
 		});
 

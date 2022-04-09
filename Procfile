@@ -1,2 +1,2 @@
 release: npx sequelize-cli db:migrate
-web: yarn start
+web: npm start

@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "A chat application for learning WebSockets (Socket.io) and improving my existing skills.",
 	"main": "src/server.js",
-	"repository": "https://github.com/KaiqueSR/chat-app.git",
+	"repository": "https://github.com/KaiqueSR/js-chatting-api.git",
 	"author": "KaiqueSR",
 	"license": "MIT",
 	"dependencies": {

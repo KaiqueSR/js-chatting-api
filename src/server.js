@@ -2,6 +2,7 @@
 const express = require("express");
 const { io } = require("socket.io-client");
 const { Message } = require("./db/models");
+const ApiError = require("./apiError");
 
 const app = express();
 const socket = io(process.env.SOCKET_SERVER_HOST);
@@ -14,7 +15,7 @@ app.get("/messages", async (req, res) => {
 });
 
 app.get("/users", async (req, res) => {
-  
+  // to implement yet
 });
 
 /*
@@ -22,14 +23,20 @@ app.get("/users", async (req, res) => {
 */
 
 app.post("/messages", async (req, res) => {
-  // to implement yet
+  const { messageText, sender } = req.body;
+
+  if (!messageText || !sender) {
+    res.status(400).json(new ApiError(400, "Missing arguments in request body"));
+  }
+  else {
+    const message = await Message.create({ messageText, sender });
+
+    res.status(201).json(message);
+  }
 });
 
 app.use((req, res) => {
-  res.status(404).json({
-    error: true,
-    statusCode: 404,
-    message: "I don't recognize this endpoint... Accepted routes: /messages (GET and POST), /users (GET)" });
+  res.status(404).json(new ApiError(404, "I don't recognize this endpoint... Accepted routes: /messages (GET and POST), /users (GET)"));
 });
 
 const PORT = process.env.PORT || 5000;

@@ -1,25 +1,24 @@
 name: Lint
 
 env:
-    NODE_VERSION: 16
+  NODE_VERSION: 16
 
 on:
-    pull_request:
-    push:
-        branches:
-            - master
+  pull_request:
+  push:
+    branches:
+      - master
 
 jobs:
-    lint:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ env.NODE_VERSION }}
-                  cache: npm
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
 
-            - run: npm install
-            - run: npm ls --depth=0
-
-            - run: npm run lint
+      - run: npm install
+      - run: npm ls --depth=0
+      - run: npm run lint

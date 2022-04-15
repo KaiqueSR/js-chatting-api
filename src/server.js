@@ -1,68 +1,45 @@
+/* eslint-disable no-unused-vars */
 const express = require("express");
-const http = require("http");
-const { Server } = require("socket.io");
+const { io } = require("socket.io-client");
+const { Message } = require("./db/models");
+const ApiError = require("./apiError");
 
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server);
+const socket = io(process.env.SOCKET_SERVER_HOST);
+app.use(express.json());
 
-const { Message } = require("./db/models");
+app.get("/messages", async (req, res) => {
+  const allMessages = await Message.findAll();
 
-let connectedUsers = [];
-
-app.use("/static", express.static(__dirname + "/views"));
-app.use(express.urlencoded({ extended: true }));
-
-app.set("views", __dirname + "/views");
-app.set("view engine", "ejs");
-
-app.get("/", async (req, res) => {
-	res.render("index");
+  res.json(allMessages);
 });
 
-app.post("/chat-room", async (req, res) => {
-	const { username } = req.body;
-	if (username) {
-		res.render("chat-room", { username });
-	} else {
-		res.redirect("/");
-	}
+app.get("/users", async (req, res) => {
+  // to implement yet
 });
 
-io.on("connection", socket => {
-	socket.on("user logged in", async username => {
-		connectedUsers.push({ id: socket.id, username });
-		io.emit("new user connected", username);
-		io.emit(
-			"connected users",
-			connectedUsers.map(user => user.username)
-		);
+/*
+  AUTHENTICATION HERE
+*/
 
-		const previousMessages = await Message.findAll();
+app.post("/messages", async (req, res) => {
+  const { messageText, sender } = req.body;
 
-		for (let message of previousMessages) {
-			socket.emit("new message", message);
-		}
-	});
+  if (!messageText || !sender) {
+    res.status(400).json(new ApiError(400, "Missing arguments in request body"));
+  }
+  else {
+    const message = await Message.create({ messageText, sender });
 
-	socket.on("disconnect", () => {
-		connectedUsers = connectedUsers.filter(user => user.id != socket.id);
-		io.emit(
-			"connected users",
-			connectedUsers.map(user => user.username)
-		);
-	});
+    res.status(201).json(message);
+  }
+});
 
-	socket.on("send message", message => {
-		message.createdAt = new Date().getTime();
-
-		Message.create(message);
-
-		socket.broadcast.emit("new message", message);
-	});
+app.use((req, res) => {
+  res.status(404).json(new ApiError(404, "I don't recognize this endpoint... Accepted routes: /messages (GET and POST), /users (GET)"));
 });
 
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
-	console.log(`Listening on port ${PORT}...`);
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}...`);
 });

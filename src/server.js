@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 const express = require("express");
 const { io } = require("socket.io-client");
-const { Message } = require("./db/models");
+const md5 = require("md5");
+const { Message, User } = require("./db/models");
 const ApiError = require("./apiError");
 
 const app = express();
@@ -14,8 +15,28 @@ app.get("/messages", async (req, res) => {
   res.json(allMessages);
 });
 
-app.get("/users", async (req, res) => {
-  // to implement yet
+app.post("/users/signup", async (req, res) => {
+  let { username, password } = req.body;
+
+  if (!username || !password) {
+    res.status(400).json(new ApiError(400, "Missing arguments in request body"));
+  }
+  else if (username.length < 3 || password.length < 3) {
+    res.status(400).json(new ApiError(400, "Invalid arguments. Arguments must have more than 3 characters"));
+  }
+  else if (username[0] === " " || username[username.length - 1] === " " || password[0] === " " || password[password.length - 1] === " ") {
+    res.status(400).json(new ApiError(400, "Invalid arguments. Do not include space at the start and at the end of the arguments"));
+  }
+  else if (await User.findOne({ where: { username }})) {
+    res.status(400).json(new ApiError(400, "Username already exists"));
+  }
+  else {
+    password = md5(password);
+
+    const user = await User.create({ username, password });
+
+    res.status(201).json({ userId: user.userId, username: user.username });
+  }
 });
 
 /*

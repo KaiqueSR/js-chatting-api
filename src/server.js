@@ -65,6 +65,33 @@ app.post("/users/login", async (req, res) => {
   }
 });
 
+app.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    return next();
+  }
+
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+
+    if (!token) {
+      res.status(401).json(new ApiError(401, "Authentication failed"));
+    }
+    else {
+      const decodedToken = jwt.verify(token, process.env.JWT_KEY);
+
+      req.userData = {
+        userId: decodedToken.userId,
+        username: decodedToken.username
+      };
+
+      next();
+    }
+  }
+  catch (err) {
+    res.status(403).json(new ApiError(403, "Authentication needed"));
+  }
+});
+
 app.post("/messages", async (req, res) => {
   const { messageText, sender } = req.body;
 

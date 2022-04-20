@@ -23,56 +23,6 @@ npm run lint
 npm run lint:fix
 ```
 
-# js-chatting-api
-API for jsChatting.
-
-## Project setup
-
-### Install dependencies:
-```
-npm install
-```
-
-### Hot-reloads for development:
-```
-npm run dev
-```
-
-### Lints verification:
-```
-npm run lint
-```
-
-###  Fix lint errors:
-```
-npm run lint:fix
-```
-
-# js-chatting-api
-API for jsChatting.
-
-## Project setup
-
-### Install dependencies:
-```
-npm install
-```
-
-### Hot-reloads for development:
-```
-npm run dev
-```
-
-### Lints verification:
-```
-npm run lint
-```
-
-###  Fix lint errors:
-```
-npm run lint:fix
-```
-
 ## Usage
 
 The application will be available on `http://localhost:5000` after starting the development server with:
